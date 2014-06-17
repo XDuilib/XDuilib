@@ -82,6 +82,8 @@ public:
 	int GetSubControlFixedWdith(LPCTSTR pstrSubControlName);
 	const CDuiString GetSubControlUserData(LPCTSTR pstrSubControlName);
 	CControlUI* FindSubControl(LPCTSTR pstrSubControlName);
+	void SetNormalGifFile(LPCTSTR pstrName);
+	bool IsVisibleGIF();
 
     virtual SIZE GetScrollPos() const;
     virtual SIZE GetScrollRange() const;
@@ -101,7 +103,8 @@ public:
     virtual void EnableScrollBar(bool bEnableVertical = true, bool bEnableHorizontal = false);
     virtual CScrollBarUI* GetVerticalScrollBar() const;
     virtual CScrollBarUI* GetHorizontalScrollBar() const;
-
+	virtual void VisibleGIF(bool bVisible = false);
+	virtual void PaintStatusImage(HDC hDC);
 protected:
     virtual void SetFloatPos(int iIndex);
     virtual void ProcessScrollBar(RECT rc, int cxRequired, int cyRequired);
@@ -117,6 +120,16 @@ protected:
 
     CScrollBarUI* m_pVerticalScrollBar;
     CScrollBarUI* m_pHorizontalScrollBar;
+
+	enum
+	{
+		GIF_TIMER_ID = 15
+	};
+
+	bool m_isUpdateTime;
+	bool m_visibleGIF;
+	CGifHandler* m_pGif;
+	int m_nPreUpdateDelay;
 };
 
 } // namespace DuiLib
